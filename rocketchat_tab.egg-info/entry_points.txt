@@ -1,0 +1,6 @@
+[lms.djangoapp]
+rocketchat_tab = rocketchat_tab.apps:RocketChatConfig
+
+[openedx.course_tab]
+rocketchat_tab = rocketchat_tab.plugins:RocketChatTab
+

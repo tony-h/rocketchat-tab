@@ -1,0 +1,16 @@
+Metadata-Version: 1.1
+Name: rocketchat-tab
+Version: 0.1.0
+Summary: rocketchat-tab Open edX course_tab
+Home-page: https://github.com/tony-h/rocketchat-tab
+Author: Tony Hetrick
+Author-email: tony.hetrick@gmail.com
+License: MIT
+Description: Integrates Rocket.Chat into each course by adding a new tab.
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Platform :: Open edX
+Classifier: Natural Language :: English
+Classifier: Environment :: Web Environment

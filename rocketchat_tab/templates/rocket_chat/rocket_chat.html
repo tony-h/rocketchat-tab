@@ -1,0 +1,57 @@
+## mako
+<%! from django.utils.translation import ugettext as _ %>
+<%namespace name='static' file='/static_content.html'/>
+<%block name="bodyclass">view-in-course</%block>
+<%block name="pagetitle">Chat</%block>
+<%inherit file="/main.html" />
+<%block name="headextra">
+
+<link rel="stylesheet" type="text/css" href="${static.url('rocket_chat/rocket_chat.css')}"/>
+
+<%static:css group='style-course'/>
+</%block>
+<%include file="/courseware/course_navigation.html" args="active_page='chat'" />
+<style>
+
+    /* Use locally on the page to prevent the values from being overwritten */
+    .chat-container {
+        max-width: none;
+        min-width: initial;
+        width: auto;
+    }
+
+</style>
+
+<div class="container chat-container">
+    <div class="chat-wrapper">
+        <main id="main" aria-label="Content" tabindex="-1">
+            <section class="chat-content" id="chat-content">
+                <!-- Restrict chat to enrolled users only -->
+                % if user_info['is_enrolled']:
+                <h2 class="hd hd-2 chat-title">Rocket Chat</h2>
+                    <!-- Error reporting or debugging -->
+                    % if rocket_chat['error']:
+                    <p>We apologize for the unexpected error. Please report this message to your helpdesk 🧑‍💻.</p>
+                    <pre>
+                        ${rocket_chat['error']}
+                    </pre>
+                    % endif
+                    <div class="rocket-chat-xblock-wrapper">
+                        <iframe
+                            src=${rocket_chat['room_url']}
+                            title=${course_info['name']}
+                        ></iframe>
+                    </div>
+                    <h3 id="chat_help">Help</h3>
+                    <p>Having problems viewing the chat box?</p>
+                    <ul>
+                      <li><a href="${rocket_chat['room_url']}" target="_blank">Open the chat application</a> in a new window.</li>
+                      <li>Log in by pressing the "G" button.</li>
+                    </ul>
+                % else:
+                <h2 class="hd hd-2 chat-title">This page is accessible to enrolled users only.</h2>
+            % endif
+            </section>
+        </main>
+    </div>
+</div>
