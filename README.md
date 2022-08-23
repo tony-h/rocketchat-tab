@@ -28,7 +28,7 @@ When the tab is opened by an enrolled user, the tab code:
 - Development:
 
       cd $(tutor config printroot)/env/build/openedx/requirements
-      git clone https://github.com/tony-h/rocketchat-tab
+      git clone https://github.com/tony-h/rocketchat-tab.git
       echo "-e ./rocketchat-tab/" >> private.txt
     
       # Stop and start Tutor dev to rebuild the images to include the new tab
@@ -37,7 +37,7 @@ When the tab is opened by an enrolled user, the tab code:
 - Production:
 
       cd $(tutor config printroot)/env/build/openedx/requirements
-      git clone https://github.com/tony-h/rocketchat-tab
+      git clone https://github.com/tony-h/rocketchat-tab.git
       echo "-e ./rocketchat-tab/" >> private.txt
 
       # Build the images and then restart Tutor
