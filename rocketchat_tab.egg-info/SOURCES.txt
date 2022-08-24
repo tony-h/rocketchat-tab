@@ -1,3 +1,5 @@
+LICENSE.txt
+MANIFEST.in
 README.md
 setup.py
 rocketchat_tab/ApiRequest.py
@@ -19,3 +21,5 @@ rocketchat_tab/migrations/__init__.py
 rocketchat_tab/settings/__init__.py
 rocketchat_tab/settings/common.py
 rocketchat_tab/settings/production.py
+rocketchat_tab/static/rocket_chat/rocket_chat.css
+rocketchat_tab/templates/rocket_chat/rocket_chat.html

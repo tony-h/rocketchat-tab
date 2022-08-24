@@ -1,2 +1,3 @@
 include LICENSE.txt
-recursive-include openedx_rocketchat *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
+include README.md
+recursive-include rocketchat_tab *.html *.css *.py
