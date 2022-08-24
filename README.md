@@ -37,15 +37,11 @@ When the tab is opened by an enrolled user, the tab code:
 - Production:
 
       cd $(tutor config printroot)/env/build/openedx/requirements
-      git clone https://github.com/tony-h/rocketchat-tab.git
-      echo "-e ./rocketchat-tab/" >> private.txt
+      echo "git+https://github.com/tony-h/rocketchat-tab.git" >> private.txt
 
       # Build the images and then restart Tutor
       tutor images build openedx
       tutor local stop & tutor local start -d
-
-  Did you get a 500 error after installation? See [this thread](https://discuss.openedx.org/t/templatedoesnotexist-exception-after-installing-an-openedx-course-tab-module/8135)
-  for a possible explanation.
 
 ## Configuration
 
