@@ -12,7 +12,7 @@ setuptools.setup(
     description="rocketchat-tab Open edX course_tab",
     long_description="Integrates Rocket.Chat into each course by adding a new tab.",
     url="https://github.com/tony-h/rocketchat-tab",
-    packages=['rocketchat_tab'],
+    packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
