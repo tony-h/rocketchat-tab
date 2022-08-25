@@ -2,11 +2,13 @@
 
 The Open edX module adds a new course tab that integrates a Rocket.Chat room.
 
-To display the Chat tab after installing the module, add the module name `rocketchat-tab` to the *Advanced Module List* (`Settings -> Advanced Settings`).
+Add the module name `rocketchat-tab` to the *Advanced Module List* (`Settings -> Advanced Settings`) to display the Chat tab after installing the module.
 
-    [
-        "rocketchat-tab"
-    ]
+``` json
+[
+    "rocketchat-tab"
+]
+```
 
 **Please note**
 
@@ -16,50 +18,65 @@ To display the Chat tab after installing the module, add the module name `rocket
 
 ## Features
 
-When the tab is opened by an enrolled user, the tab code:
+When the tab is opened by an enrolled user, the chat module:
 
 1. Creates a new Rocket.Chat room using the course ID
 2. Creates and validates a new Rocket.Chat user account using the user's Open edX username, email address, and display name
 3. Adds the user to the Rocket.Chat room
 4. Displays the room
 
-## Install
+## Development
 
-- Development:
+**Installation**
 
-      cd $(tutor config printroot)/env/build/openedx/requirements
-      git clone https://github.com/tony-h/rocketchat-tab.git
-      echo "-e ./rocketchat-tab/" >> private.txt
-    
-      # Stop and start Tutor dev to rebuild the images to include the new tab
-      tutor dev stop && tutor dev start -d
+The installation method is similar to installing XBlocks or other custom modules.
 
-- Production:
+``` bash
+cd $(tutor config printroot)/env/build/openedx/requirements
+git clone https://github.com/tony-h/rocketchat-tab.git
+echo "-e ./rocketchat-tab/" >> private.txt
 
-      cd $(tutor config printroot)/env/build/openedx/requirements
-      echo "git+https://github.com/tony-h/rocketchat-tab.git" >> private.txt
+# Stop and start Tutor dev to rebuild the images to include the new tab
+tutor dev stop && tutor dev start -d
+```
 
-      # Build the images and then restart Tutor
-      tutor images build openedx
-      tutor local stop & tutor local start -d
+**Configuration**
 
-## Configuration
+See Rocket.Chat's instructions on obtaining a
+[Personal Access Token](https://docs.rocket.chat/guides/user-guides/user-panel/managing-your-account/personal-access-token).
 
-Edit *settings/common.py* to specify your Rocket.Chat data.
-
-    settings.ROCKETCHAT_BASE_URL = 'https://your.rocketchat.instance/'
-    settings.ROCKETCHAT_ADMIN_TOKEN = "your-admin-token"
-    settings.ROCKETCHAT_ADMIN_USER_ID = "your-user-id"
+Edit *settings/common.py* to specify your Rocket.Chat data. 
+  
+``` python
+settings.ROCKETCHAT_BASE_URL = 'https://your.rocketchat.instance/'
+settings.ROCKETCHAT_ADMIN_TOKEN = "your-admin-token"
+settings.ROCKETCHAT_ADMIN_USER_ID = "your-user-id"
+```
 
 ## Production
 
-Create a Tutor plugin to specify the Rocket.Chat environmental variables.
+**Installation**
 
-Here is the plugin template for `$(tutor plugins printroot)/rocketchat-auth.py`
+The installation method is similar to installing XBlocks or other custom modules.
 
-    # Place this code in a new Tutor plugin file, such as 'rocketchat-auth.py'
+``` bash
+cd $(tutor config printroot)/env/build/openedx/requirements
+echo "git+https://github.com/tony-h/rocketchat-tab.git" >> private.txt
+
+# Build the images and then restart Tutor
+tutor images build openedx
+tutor local stop & tutor local start -d
+```
+
+**Configuration**
+
+1. Create a Tutor plugin to specify the Rocket.Chat environmental variables.
+  
+    Here is the plugin template for `$(tutor plugins printroot)/rocketchat-auth.py`
+
+    ``` python
     from tutor import hooks
-    
+
     hooks.Filters.ENV_PATCHES.add_item(
         (
             "openedx-lms-common-settings",
@@ -70,3 +87,20 @@ Here is the plugin template for `$(tutor plugins printroot)/rocketchat-auth.py`
     ROCKETCHAT_ADMIN_USER_ID = "your-user-id"
     """    )
     )
+    ```
+
+2. Enable and activate the plugin.
+
+    ``` bash
+    # Verify the plugin is listed
+    tutor plugins list
+
+    # Enable the plugin
+    tutor plugins enable rocketchat-auth
+
+    # Update the environment to include the plugin
+    tutor config save
+
+    # Run tutor quickstart
+    tutor local quickstart
+    ```
